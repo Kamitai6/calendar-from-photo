@@ -1,0 +1,66 @@
+<ActionBar title="Modal Pages">
+    <ActionItem text="add" (tap)="onRedisplay()" ios.systemIcon="4"
+        android.systemIcon="ic_menu_add" ios.position="right"
+        android.position="popup">
+    </ActionItem>
+    <StackLayout orientation="horizontal" ios:horizontalAlignment="center"
+        android:horizontalAlignment="left">
+        <Label text="Calendar" class="label-calendar"></Label>
+        <Label text="from" class="label-from"></Label>
+        <Label text="Photo" class="label-photo"></Label>
+    </StackLayout>
+</ActionBar>
+
+<StackLayout class="home-panel">
+    <BottomNavigation>
+        <TabStrip>
+            <TabStripItem backgroundColor="#EEEEFF">
+                <Label text="Scan" class="scan-button-label"></Label>
+            </TabStripItem>
+            <TabStripItem backgroundColor="#EEEEFF">
+                <Label text="Calendar" class="calendar-button-label"></Label>
+            </TabStripItem>
+        </TabStrip>
+
+        <TabContentItem>
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout class="camerabutton"
+                        (tap)="onTakePictureTap($event)">
+                        <StackLayout class="camerabutton-image">
+                            <Image src="~/logo/camera.png">
+                            </Image>
+                        </StackLayout>
+                        <StackLayout class="camerabutton-text">
+                            <Label text="Take a picture and upload"></Label>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout class="folderbutton"
+                        (tap)="onSelectImageTap($event)">
+                        <StackLayout class="folderbutton-image">
+                            <Image class="imagesize" src="~/logo/folder.png">
+                            </Image>
+                        </StackLayout>
+                        <StackLayout class="folderbutton-text">
+                            <Label text="Choose image to upload"></Label>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </TabContentItem>
+
+        <TabContentItem>
+            <ScrollView>
+                <StackLayout>
+                    <RadCalendar height="1000px"
+                        [eventSource]="calendarEvents" eventsViewMode="Inline"
+                        selectionMode="Single" viewMode="Month"
+                        transitionMode="Stack" locale="en-US"
+                        (inlineEventSelected)="onInlineEventSelected($event)">
+                    </RadCalendar>
+                </StackLayout>
+            </ScrollView>
+        </TabContentItem>
+
+    </BottomNavigation>
+</StackLayout>

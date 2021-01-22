@@ -1,0 +1,16 @@
+.time-panel{
+    vertical-align: flex-start; 
+    font-size: 20;
+    margin: 0;
+    
+}
+
+.save{
+    margin:30px,0px,200px,150px;
+    font-size: 22;
+}
+
+.cancel{
+    margin:30px,150px,200px,0px;
+    font-size: 22;
+}

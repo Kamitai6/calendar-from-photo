@@ -1,0 +1,17 @@
+<StackLayout class="modal-panel">
+    <!--Add your page content here-->
+    <FlexboxLayout flexDirection="row" class="flex">
+        <Button text="Cancel" flexGrow="1" class="cancel" (tap)="cancel()">
+        </Button>
+        <Button text="Save" flexGrow="1" class="save" (tap)="close()">
+        </Button>
+    </FlexboxLayout>
+    <StackLayout class="p-20">
+        <TextField [(ngModel)]="title" hint="イベント名">
+        </TextField>
+        <TextField [(ngModel)]="startValue" hint="開始時間"
+            (tap)="showstartModal()"></TextField>
+        <TextField [(ngModel)]="endValue" hint="終了時間"
+            (tap)="showendModal()"></TextField>
+    </StackLayout>
+</StackLayout>

@@ -1,0 +1,27 @@
+<StackLayout class="time-panel">
+    <!--Add your page content here-->
+    <FlexboxLayout flexDirection="row" class="flex">
+        <Button text="Cancel" flexGrow="1" class="cancel" (tap)="cancel()">
+        </Button>
+        <Button text="Save" flexGrow="1" class="save" (tap)="close()">
+        </Button>
+    </FlexboxLayout>
+    <StackLayout margin="24" horizontalAlignment="center"
+        verticalAlignment="center" orientation="vertical">
+        <Label text="日付"></Label>
+        <DatePicker #datePicker [year]="dtyear" [month]="dtmonth"
+            [day]="dtday" verticalAlignment="center"
+            horizontalAlignment="center">
+        </DatePicker>
+
+    </StackLayout>
+
+    <StackLayout margin="24" horizontalAlignment="center"
+        verticalAlignment="center" orientation="vertical">
+        <Label text="時間"></Label>
+        <TimePicker #timePicker [hour]="dthour" [minite]="dtminute"
+            verticalAlignment="center" horizontalAlignment="center">
+        </TimePicker>
+    </StackLayout>
+
+</StackLayout>

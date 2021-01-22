@@ -1,0 +1,67 @@
+.label-calendar {
+    color: white;
+    font-size: 22;
+    font-weight: bold;
+    vertical-align: bottom;
+}
+.label-from {
+    color: white;
+    font-size: 18;
+    font-weight: bold;
+    vertical-align: bottom;
+}
+.label-photo {
+    color: white;
+    font-size: 22;
+    font-weight: bold;
+    vertical-align: bottom;
+}
+
+.home-panel{
+    vertical-align: center; 
+    font-size: 20;
+}
+
+.scan-button-label{
+    vertical-align: center;
+    font-weight: 700;
+    font-size: 30;
+}
+.calendar-button-label{
+    vertical-align: center;
+    font-weight: 700; 
+    font-size: 30;
+}
+
+.camerabutton{
+    color: #fff;
+    background-color: #EEEEEE;
+    border-radius: 25px;
+    width:90%;
+    margin: 50px 0px 70px 0px;
+}
+.camerabutton-text {
+    color: black;
+    font-size: 22;
+    font-weight: bold;
+    vertical-align: bottom;
+    text-align: center;
+}
+
+.folderbutton{
+    color: #fff;
+    background-color: #EEEEEE;
+    border-radius: 25px;
+    width:90%;
+}
+.folderbutton-text {
+    color: black;
+    font-size: 22;
+    font-weight: bold;
+    vertical-align: bottom;
+    text-align: center;
+}
+
+.imagesize{
+    width:95%;  
+}
