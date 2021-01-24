@@ -13,8 +13,6 @@ import { TimeComponent } from "../time/time.component";
 })
 export class ModalComponent implements OnInit {
     title: string = "";
-
-
     startValue: any = "";
     endValue: any = "";
 
@@ -26,18 +24,11 @@ export class ModalComponent implements OnInit {
         this.endValue = num;
     }
 
-    onButtonTap(): void {
-        //console.log("Button was pressed");
-    }
+    onButtonTap(): void {}
 
+    constructor(private modalService: ModalDialogService, private viewContainerRef: ViewContainerRef, private params: ModalDialogParams) {}
 
-    constructor(private modalService: ModalDialogService, private viewContainerRef: ViewContainerRef, private params: ModalDialogParams) {
-    }
-
-    ngOnInit(): void {
-
-    }
-
+    ngOnInit(): void {}
 
     showstartModal() {
         const options: ModalDialogOptions = {
@@ -45,9 +36,7 @@ export class ModalComponent implements OnInit {
             fullscreen: false,
             context: {}
         };
-
         this.modalService.showModal(TimeComponent, options).then((res) => {
-            //console.log(res);
             this.startchange(res);
         });
     }
@@ -60,11 +49,9 @@ export class ModalComponent implements OnInit {
         };
 
         this.modalService.showModal(TimeComponent, options).then((res) => {
-            //console.log(res);
             this.endchange(res);
         });
     }
-
 
     public close() {
         let event = [this.title, this.startValue, this.endValue];

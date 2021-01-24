@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewContainerRef } from "@angular/core";
-import { ImageAnnotatorClient } from "@google-cloud/vision";
+import { Component, Inject, OnInit, ViewContainerRef, ElementRef, ViewChild } from "@angular/core";
 import { isIOS, isAndroid } from "tns-core-modules/platform";
+import { EventData, Observable, fromObject } from "tns-core-modules/data/observable";
+import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
 import { ImageAsset } from "tns-core-modules/image-asset";
+import { View } from "tns-core-modules/ui/core/view";
+import { Page } from "tns-core-modules/ui/page";
 import { Color } from "tns-core-modules/color";
 import * as dialogs from "tns-core-modules/ui/dialogs";
 import { knownFolders, path } from "tns-core-modules/file-system";
@@ -12,6 +15,7 @@ import * as calendarModule from "nativescript-ui-calendar";
 import * as imagepicker from "nativescript-imagepicker";
 
 import { ModalComponent } from "../modal/modal.component";
+import { Vision } from "../vision/vision";
 
 
 @Component({
@@ -25,14 +29,44 @@ export class HomeComponent implements OnInit {
 
     calendarEvents = [];
     image: ImageAsset;
-    imagePath: any;
-    public showWelcome = true;
-    public cameraImage: ImageAsset;
-    public saveToGallery: boolean = true;
+    imagePath: string;
+    imageSource = new ImageSource();
+    showWelcome = true;
+    cameraImage: ImageAsset;
+    saveToGallery: boolean = true;
 
-    ngOnInit(): void { }
+    @ViewChild("embed", {static: false}) embed: ElementRef;
+    views: StackLayout;
 
-    constructor(private modalService: ModalDialogService, private viewContainerRef: ViewContainerRef) {}
+    constructor(
+        private modalService: ModalDialogService, 
+        private viewContainerRef: ViewContainerRef,
+        private imageContainer: ViewContainerRef,
+        @Inject(Vision) private vision: Vision,
+        ){}
+
+    ngOnInit(): void {
+        // this.imageContainer = <StackLayout>this.stacklayout.nativeElement;
+        // const view = new Observable();
+        // view.set("embedimage", "~/logo/noimage.png");
+        // this.imageContainer.bindingContext = view;
+        // this.imageContainer.getViewById('embed')
+    }
+
+    loaded(args) {
+        console.log("aaaaaaaaaaaaaaaaaaaaa");
+        this.views = <StackLayout>this.embed.nativeElement;
+        const view = this.views.getViewById("aiueo");
+        const vm = fromObject({ "imageUri": "~/logo/noimage.png" });
+        view.bindingContext = vm;
+    }
+
+    // onNavigatingTo(args: EventData) {
+    //     const page: Page = <Page>args.object;
+    //     const vm = new Observable();
+    //     vm.set("embedimage", "~/logo/noimage.png");
+    //     page.bindingContext = vm;
+    // }
 
     //イベント追加
     onRedisplay() {
@@ -60,15 +94,13 @@ export class HomeComponent implements OnInit {
     }
 
     //カメラ選択
-    onTakePictureTap(args) {
+    onTakePictureTap() {
         this.takePhoto();
-        //this.toGcv();
     }
 
     //ローカル画像選択
     onSelectImageTap() {
         this.selectPhoto();
-        //this.toGcv();
     }
 
     private addEvent(args) {
@@ -158,9 +190,9 @@ export class HomeComponent implements OnInit {
             .then(() => context.present())  // 選択画面の表示
             .then(selection => this.setImage(selection[0]))  // 選択画像の処理
             .catch(err => {
-        console.error({err});
-            this.image = null;
-        });
+                console.error({err});
+                this.image = null;
+            });
     }
 
     private setImage(imageAsset: ImageAsset) {
@@ -168,6 +200,7 @@ export class HomeComponent implements OnInit {
         if (isAndroid) {
             // Android は imageAsset.android にファイルパスが入っている
             this.imagePath = imageAsset.android;
+            console.log("successfully in path: " + this.imagePath);
         } else {
             // iOS はファイルパスが取得できないため、アプリ内にファイルを一時保存する必要がある
             const folder = knownFolders.documents();  // ユーザーからは見えないディレクトリ
@@ -175,16 +208,50 @@ export class HomeComponent implements OnInit {
             // png として保存
             const source = new ImageSource();
             source.fromAsset(imageAsset)
-                .then(imageSource => {
-                    const saved = imageSource.saveToFile(this.imagePath, 'png');
+                .then((imageSource: ImageSource) => {
+                    this.imageSource = imageSource;
+                    const saved = this.imageSource.saveToFile(this.imagePath, 'png');
                     if (saved) {
                         console.log("successfully in path: " + this.imagePath);
+                        this.toGcv();
                     }
+                })
+                .catch((e) => {
+                    console.log("Error: ");
+                    console.log(e);
                 });
         }
+        console.log("aaaaaaaaaaaaaaaaaaaaa");
+        this.views = <StackLayout>this.embed.nativeElement;
+        const view = this.views.getViewById("aiueo");
+        // const vm = new Observable();
+        // vm.set("imageUri", "~/logo/noimage.png");
+        const vm = fromObject({ "imageUri": "~/logo/noimage.png" });
+        view.bindingContext = vm;
     }
 
-    private toGcv(path: string) {
-        ImageAnnotatorClient
+    private toGcv() {
+        this.vision.ocrPicture(this.imageSource.toBase64String('png'))
+            .then(evaluation => {
+                console.log(evaluation.ocr);
+                console.log(evaluation.things);
+            });
+        // const client = new ImageAnnotatorClient();
+        // const imageFile: File = File.fromPath(this.imagePath);
+
+        // const request = {
+        //     image: {
+        //         content: imageFile.readSync((err) => {
+        //             console.log(err);
+        //         }),
+        //     },
+        //     feature: {
+        //         languageHints: ['jpan'],
+        //     },
+        // };
+
+        // const [result] = client.textDetection(request);
+        // const fullTextAnnotation = result.fullTextAnnotation;
+        // console.log(`Full text: ${fullTextAnnotation.text}`);
     }
 }

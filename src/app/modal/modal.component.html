@@ -7,11 +7,8 @@
         </Button>
     </FlexboxLayout>
     <StackLayout class="p-20">
-        <TextField [(ngModel)]="title" hint="イベント名">
-        </TextField>
-        <TextField [(ngModel)]="startValue" hint="開始時間"
-            (tap)="showstartModal()"></TextField>
-        <TextField [(ngModel)]="endValue" hint="終了時間"
-            (tap)="showendModal()"></TextField>
+        <TextField class='textfield' [(ngModel)]="title" hint="イベント名"></TextField>
+        <TextField class='textfield' [(ngModel)]="startValue" hint="開始時間" (tap)="showstartModal()"></TextField>
+        <TextField class='textfield' [(ngModel)]="endValue" hint="終了時間" (tap)="showendModal()"></TextField>
     </StackLayout>
 </StackLayout>

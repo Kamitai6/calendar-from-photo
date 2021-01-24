@@ -12,55 +12,57 @@
 </ActionBar>
 
 <StackLayout class="home-panel">
-    <BottomNavigation>
+    <BottomNavigation selectedIndex="1">
+
+        <TabContentItem class="first">
+            <ScrollView>
+                <StackLayout>
+                    <StackLayout #embed (loaded)="loaded($event)">
+                        <Image src="~/logo/noimage.png" width="320" height="320" stretch="aspectFill" id="aiueo"></Image>
+                    </StackLayout>
+                    <StackLayout orientation="horizontal">
+                        <StackLayout class="camerabutton"
+                            (tap)="onTakePictureTap($event)">
+                            <StackLayout class="camerabutton-image">
+                                <Image src="~/logo/camera.png"></Image>
+                            </StackLayout>
+                            <StackLayout class="camerabutton-text">
+                                <Label text="Take a photo and upload"></Label>
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout class="folderbutton"
+                            (tap)="onSelectImageTap($event)">
+                            <StackLayout class="folderbutton-image">
+                                <Image class="imagesize" src="~/logo/folder.png"></Image>
+                            </StackLayout>
+                            <StackLayout class="folderbutton-text">
+                                <Label text="Choose image to upload"></Label>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </TabContentItem>
+
+        <TabContentItem class="second">
+            <StackLayout>
+                <RadCalendar height="auto"
+                    [eventSource]="calendarEvents" eventsViewMode="Inline"
+                    selectionMode="Single" viewMode="Month"
+                    transitionMode="Stack" locale="en-US"
+                    (inlineEventSelected)="onInlineEventSelected($event)">
+                </RadCalendar>
+            </StackLayout>
+        </TabContentItem>
+
         <TabStrip>
             <TabStripItem backgroundColor="#EEEEFF">
-                <Label text="Scan" class="scan-button-label"></Label>
+                <Image src="~/logo/upload.png" class="buttonimage"></Image>
             </TabStripItem>
             <TabStripItem backgroundColor="#EEEEFF">
-                <Label text="Calendar" class="calendar-button-label"></Label>
+                <Image src="~/logo/calendar.png" class="buttonimage"></Image>
             </TabStripItem>
         </TabStrip>
-
-        <TabContentItem>
-            <ScrollView>
-                <StackLayout>
-                    <StackLayout class="camerabutton"
-                        (tap)="onTakePictureTap($event)">
-                        <StackLayout class="camerabutton-image">
-                            <Image src="~/logo/camera.png">
-                            </Image>
-                        </StackLayout>
-                        <StackLayout class="camerabutton-text">
-                            <Label text="Take a picture and upload"></Label>
-                        </StackLayout>
-                    </StackLayout>
-                    <StackLayout class="folderbutton"
-                        (tap)="onSelectImageTap($event)">
-                        <StackLayout class="folderbutton-image">
-                            <Image class="imagesize" src="~/logo/folder.png">
-                            </Image>
-                        </StackLayout>
-                        <StackLayout class="folderbutton-text">
-                            <Label text="Choose image to upload"></Label>
-                        </StackLayout>
-                    </StackLayout>
-                </StackLayout>
-            </ScrollView>
-        </TabContentItem>
-
-        <TabContentItem>
-            <ScrollView>
-                <StackLayout>
-                    <RadCalendar height="1000px"
-                        [eventSource]="calendarEvents" eventsViewMode="Inline"
-                        selectionMode="Single" viewMode="Month"
-                        transitionMode="Stack" locale="en-US"
-                        (inlineEventSelected)="onInlineEventSelected($event)">
-                    </RadCalendar>
-                </StackLayout>
-            </ScrollView>
-        </TabContentItem>
 
     </BottomNavigation>
 </StackLayout>
