@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class Vision{
     constructor (private http: HttpClient) {}
         
-    private apiKey = "AIzaSyBqDbcSg4K-TqiD83dkdLJHCs10TIdrhZU";
+    private apiKey = "your id";
 
     private googleVisionURL = "https://vision.googleapis.com/v1/images:annotate?key=" + this.apiKey;
 
