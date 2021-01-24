@@ -29,6 +29,10 @@ TabStripItem
     font-size: 20;
 }
 
+.image-container{
+    margin: 150px 0px 70px 0px;
+}
+
 .scan-button-label{
     vertical-align: center;
     font-weight: 700;
@@ -44,8 +48,8 @@ TabStripItem
     color: #fff;
     background-color: #EEEEEE;
     border-radius: 25px;
-    width:50%;
-    margin: 50px 0px 70px 0px;
+    width:45%;
+    margin: 50px 20px 50px 20px;
 }
 .camerabutton-text {
     color: black;
@@ -59,8 +63,8 @@ TabStripItem
     color: #fff;
     background-color: #EEEEEE;
     border-radius: 25px;
-    width:50%;
-    margin: 50px 0px 70px 0px;
+    width:45%;
+    margin: 50px 20px 50px 20px;
 }
 .folderbutton-text {
     color: black;
@@ -68,8 +72,4 @@ TabStripItem
     font-weight: bold;
     vertical-align: bottom;
     text-align: center;
-}
-
-.imagesize{
-    width:95%;  
 }

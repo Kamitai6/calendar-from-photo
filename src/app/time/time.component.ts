@@ -28,20 +28,13 @@ export class TimeComponent implements OnInit {
     constructor(private params: ModalDialogParams) {
         //this.prompt = params.context.promptMsg;
     }
-    ngOnInit() {
-    }
+    
+    ngOnInit() {}
 
     public close() {
         let datePickerView = <DatePicker>this.datePicker.nativeElement;
-        //console.log("Year " + this.dtyear);
-        //console.log("Year from NGModel Year " + datePickerView.year);
-        //console.log("Year from NGModel month " + datePickerView.month);
-        //console.log("Year from NGModel day " + datePickerView.day);
 
         let timePickerView = <TimePicker>this.timePicker.nativeElement;
-        //console.log("hour " + this.dthour);
-        //console.log("Year from NGModel hour " + timePickerView.hour);
-        //console.log("Year from NGModel minute " + timePickerView.minute);
 
         let returndate = new Date(datePickerView.year, datePickerView.month - 1, datePickerView.day, timePickerView.hour, timePickerView.minute);
 

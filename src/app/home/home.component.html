@@ -11,14 +11,24 @@
     </StackLayout>
 </ActionBar>
 
+
+
 <StackLayout class="home-panel">
     <BottomNavigation selectedIndex="1">
-
+        
         <TabContentItem class="first">
             <ScrollView>
                 <StackLayout>
-                    <StackLayout #embed (loaded)="loaded($event)">
-                        <Image src="~/logo/noimage.png" width="320" height="320" stretch="aspectFill" id="aiueo"></Image>
+                    <StackLayout (loaded)="loaded($event)" class="image-container">
+                        <Image
+                            [src]="imageSrc"
+                            width="320"
+                            height="320"
+                            stretch="aspectFit">
+                        </Image>
+                    </StackLayout>
+                    <StackLayout>
+                        <TextView [text]="resulttext"></TextView>
                     </StackLayout>
                     <StackLayout orientation="horizontal">
                         <StackLayout class="camerabutton"
@@ -33,7 +43,7 @@
                         <StackLayout class="folderbutton"
                             (tap)="onSelectImageTap($event)">
                             <StackLayout class="folderbutton-image">
-                                <Image class="imagesize" src="~/logo/folder.png"></Image>
+                                <Image src="~/logo/folder.png"></Image>
                             </StackLayout>
                             <StackLayout class="folderbutton-text">
                                 <Label text="Choose image to upload"></Label>
